@@ -7,14 +7,15 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
     body {
       background: #06060e;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
       user-select: none;
       -webkit-user-select: none;
-      height: 100dvh;
       width: 100vw;
       cursor: grab;
     }
@@ -23,13 +24,13 @@
 
     canvas {
       display: block;
-      position: fixed;
+      position: absolute;
       inset: 0;
     }
 
     /* ── UI Overlay ── */
     .ui-layer {
-      position: fixed;
+      position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 10;
@@ -159,7 +160,7 @@
 
     /* ── Proximity indicator ── */
     .proximity-dot {
-      position: fixed;
+      position: absolute;
       width: 120px; height: 120px;
       border-radius: 50%;
       border: 1px solid rgba(255,179,71,0.2);
@@ -172,34 +173,131 @@
     }
     .proximity-dot.visible { opacity: 1; }
 
+    /* ── 滚动内容区 ── */
+    .hero {
+      position: relative;
+      height: 100dvh;
+      width: 100vw;
+      overflow: hidden;
+    }
+    .content-section {
+      position: relative;
+      z-index: 20;
+      background: linear-gradient(to bottom, transparent, #06060e 100px, #06060e);
+      padding: 80px clamp(16px, 4vw, 40px) 120px;
+      display: flex; flex-direction: column; align-items: center; gap: 60px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      width: 100%;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 28px;
+      transition: border-color 0.4s, transform 0.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(255,179,71,0.3);
+      transform: translateY(-4px);
+    }
+    .feature-card .icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700; color: #fff; letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 500px;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .ui-layer { padding: 16px; }
       .product-card { border-radius: 16px; padding: 20px; }
       .product-card .stats { gap: 16px; }
+      .content-section { padding: 60px 16px 80px; gap: 40px; }
+      .feature-grid { grid-template-columns: 1fr; gap: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="proximity-dot" id="proximityDot"></div>
+  <div class="hero" id="heroSection">
+    <div class="proximity-dot" id="proximityDot"></div>
 
-  <div class="ui-layer">
-    <div class="top-bar">
-      <div class="logo">VOID<span>CRYSTAL</span></div>
-      <div class="nav-hint">拖拽旋转 &nbsp;·&nbsp; 滚轮缩放</div>
-    </div>
-
-    <div class="product-card">
-      <div class="badge">全新发布</div>
-      <h1>Void Crystal X1</h1>
-      <p>程序化几何引擎驱动 · 实时 proximity 着色器 · 自适应曲面变形技术。每一帧都是独一无二的艺术品。</p>
-      <div class="stats">
-        <div class="stat"><span class="stat-value">64K</span><span class="stat-label">顶点密度</span></div>
-        <div class="stat"><span class="stat-value">0.3ms</span><span class="stat-label">着色延迟</span></div>
-        <div class="stat"><span class="stat-value">∞</span><span class="stat-label">几何变体</span></div>
+    <div class="ui-layer">
+      <div class="top-bar">
+        <div class="logo">VOID<span>CRYSTAL</span></div>
+        <div class="nav-hint">拖拽旋转 &nbsp;·&nbsp; 滚轮缩放</div>
       </div>
-      <button class="cta" id="ctaButton">探索更多 →</button>
+
+      <div class="product-card">
+        <div class="badge">全新发布</div>
+        <h1>Void Crystal X1</h1>
+        <p>程序化几何引擎驱动 · 实时 proximity 着色器 · 自适应曲面变形技术。每一帧都是独一无二的艺术品。</p>
+        <div class="stats">
+          <div class="stat"><span class="stat-value">64K</span><span class="stat-label">顶点密度</span></div>
+          <div class="stat"><span class="stat-value">0.3ms</span><span class="stat-label">着色延迟</span></div>
+          <div class="stat"><span class="stat-value">∞</span><span class="stat-label">几何变体</span></div>
+        </div>
+        <button class="cta" id="ctaButton">探索更多 ↓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 滚动内容区 ═══ -->
+  <div class="content-section" id="features">
+    <h2 class="section-title">核心技术</h2>
+    <p class="section-subtitle">每一项都对应 Blender 的节点系统概念，在浏览器中实时运行</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon">🧊</div>
+        <h3>程序化几何 (Geometry Nodes)</h3>
+        <p>用 FBM 分形噪声扭曲 Icosahedron 的每一个顶点，生成独一无二的水晶形态。所有顶点都在 GPU 着色器中实时计算。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔥</div>
+        <h3>接近函数 (Proximity)</h3>
+        <p>鼠标位置投影到 3D 空间，每个顶点计算到该点的距离。近的顶点沿法线隆起，像素颜色从暗蓝渐变到金白热力。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">✨</div>
+        <h3>粒子 SDF 吸引</h3>
+        <p>400+ 轨道粒子被鼠标 proximity 点吸引，力的衰减曲线模拟有向距离场 (SDF)，靠近时呈指数加速。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🎨</div>
+        <h3>GPU 着色器 (Shader)</h3>
+        <p>自定义 GLSL 顶点着色器处理形变，片元着色器处理多光源 PBR + proximity 热力渐变 + Fresnel 边缘光。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🖱️</div>
+        <h3>惯性拖拽 + 弹簧物理</h3>
+        <p>拖拽旋转带指数衰减惯性 (e^(-3.5Δt))，缩放用弹簧插值 (spring=6.0)，手感像高端 3D 软件。</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🚀</div>
+        <h3>零依赖 · 一个文件</h3>
+        <p>整个页面只有 1 个 HTML 文件。Three.js 从 CDN 按需加载。部署只需把文件放到任意静态托管。</p>
+      </div>
     </div>
   </div>
 
@@ -223,7 +321,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
-    document.body.prepend(renderer.domElement);
+    document.getElementById('heroSection').prepend(renderer.domElement);
 
     const scene = new THREE.Scene();
 
@@ -714,6 +812,9 @@
     }
 
     function onWheel(e) {
+      // 如果已经滚动到内容区，使用正常滚动
+      if (window.scrollY > 10) return;
+      // 在 hero 区域内：滚轮缩放 3D 场景
       e.preventDefault();
       targetZoom += e.deltaY * 0.005;
       targetZoom = Math.max(3.5, Math.min(12, targetZoom));
@@ -782,12 +883,10 @@
     //  CTA BUTTON — ripple effect
     // ═══════════════════════════════════════════
 
-    document.getElementById('ctaButton').addEventListener('click', () => {
-      // Reset view with animation
-      targetRotX = 0;
-      targetRotY = 0;
-      targetZoom = 7;
-      rotVelocity.set(0, 0);
+    document.getElementById('ctaButton').addEventListener('click', (e) => {
+      e.stopPropagation();
+      // 平滑滚动到下方内容区
+      document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
     });
 
     // ═══════════════════════════════════════════
