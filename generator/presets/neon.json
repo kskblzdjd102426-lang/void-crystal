@@ -1,0 +1,65 @@
+{
+  "meta": { "title": "NEON PULSE — 赛博朋克风 3D 展示" },
+
+  "colors": {
+    "background": "#000011",
+    "baseGeometry": "#0a0030",
+    "proximityGlow": "#ff00ff",
+    "edgeAccent": "#00ffff",
+    "particle": "#ff66ff",
+    "ring1": "#ff00ff",
+    "ring2": "#00ffff",
+    "ring3": "#8800ff"
+  },
+
+  "geometry": {
+    "type": "torusKnot",
+    "radius": 1.3,
+    "detail": 100,
+    "noiseStrength": 0.15,
+    "noiseOctaves": 3
+  },
+
+  "lights": {
+    "keyColor": "#ff00ff",
+    "keyIntensity": 60,
+    "fillColor": "#00ffff",
+    "fillIntensity": 35,
+    "rimColor": "#8800ff",
+    "rimIntensity": 30
+  },
+
+  "particles": {
+    "orbitCount": 600,
+    "ambientCount": 350,
+    "wireRings": 3
+  },
+
+  "proximity": {
+    "radius": 1.8,
+    "strength": 0.30,
+    "particleAttraction": 0.50
+  },
+
+  "camera": {
+    "defaultZoom": 6,
+    "minZoom": 3,
+    "maxZoom": 10,
+    "rotationSpeed": 0.006,
+    "inertia": 2.5
+  },
+
+  "ui": {
+    "logoBefore": "NEON",
+    "logoAccent": "PULSE",
+    "badge": "限量版",
+    "heading": "Neon Pulse Z9",
+    "description": "赛博朋克风格 · 高灵敏度 proximity 交互 · TorusKnot 拓扑几何 · 霓虹粒子场",
+    "stats": [
+      { "value": "120K", "label": "顶点密度" },
+      { "value": "600+", "label": "粒子数量" },
+      { "value": "霓虹", "label": "视觉风格" }
+    ],
+    "ctaText": "立即体验 ⚡"
+  }
+}

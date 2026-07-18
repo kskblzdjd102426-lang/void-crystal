@@ -1,0 +1,65 @@
+{
+  "meta": { "title": "VOID CRYSTAL — 程序化 3D 产品展示" },
+
+  "colors": {
+    "background": "#06060e",
+    "baseGeometry": "#15153a",
+    "proximityGlow": "#ffb347",
+    "edgeAccent": "#64b5f6",
+    "particle": "#aaddff",
+    "ring1": "#ffb347",
+    "ring2": "#64b5f6",
+    "ring3": "#ff6688"
+  },
+
+  "geometry": {
+    "type": "icosahedron",
+    "radius": 1.5,
+    "detail": 80,
+    "noiseStrength": 0.45,
+    "noiseOctaves": 5
+  },
+
+  "lights": {
+    "keyColor": "#ffb347",
+    "keyIntensity": 40,
+    "fillColor": "#4488ff",
+    "fillIntensity": 20,
+    "rimColor": "#ff4488",
+    "rimIntensity": 15
+  },
+
+  "particles": {
+    "orbitCount": 400,
+    "ambientCount": 250,
+    "wireRings": 3
+  },
+
+  "proximity": {
+    "radius": 1.6,
+    "strength": 0.22,
+    "particleAttraction": 0.35
+  },
+
+  "camera": {
+    "defaultZoom": 7,
+    "minZoom": 3.5,
+    "maxZoom": 12,
+    "rotationSpeed": 0.005,
+    "inertia": 3.5
+  },
+
+  "ui": {
+    "logoBefore": "VOID",
+    "logoAccent": "CRYSTAL",
+    "badge": "全新发布",
+    "heading": "Void Crystal X1",
+    "description": "程序化几何引擎驱动 · 实时 proximity 着色器 · 自适应曲面变形技术。每一帧都是独一无二的艺术品。",
+    "stats": [
+      { "value": "64K", "label": "顶点密度" },
+      { "value": "0.3ms", "label": "着色延迟" },
+      { "value": "∞", "label": "几何变体" }
+    ],
+    "ctaText": "探索更多 →"
+  }
+}

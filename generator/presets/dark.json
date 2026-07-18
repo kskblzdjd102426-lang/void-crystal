@@ -1,0 +1,65 @@
+{
+  "meta": { "title": "DARK MATTER — 极简暗黑 3D 展示" },
+
+  "colors": {
+    "background": "#000000",
+    "baseGeometry": "#111111",
+    "proximityGlow": "#ffffff",
+    "edgeAccent": "#444444",
+    "particle": "#666666",
+    "ring1": "#333333",
+    "ring2": "#555555",
+    "ring3": "#444444"
+  },
+
+  "geometry": {
+    "type": "sphere",
+    "radius": 1.6,
+    "detail": 64,
+    "noiseStrength": 0.30,
+    "noiseOctaves": 6
+  },
+
+  "lights": {
+    "keyColor": "#ffffff",
+    "keyIntensity": 30,
+    "fillColor": "#888888",
+    "fillIntensity": 15,
+    "rimColor": "#cccccc",
+    "rimIntensity": 12
+  },
+
+  "particles": {
+    "orbitCount": 200,
+    "ambientCount": 150,
+    "wireRings": 1
+  },
+
+  "proximity": {
+    "radius": 2.0,
+    "strength": 0.18,
+    "particleAttraction": 0.20
+  },
+
+  "camera": {
+    "defaultZoom": 8,
+    "minZoom": 4,
+    "maxZoom": 14,
+    "rotationSpeed": 0.003,
+    "inertia": 5.0
+  },
+
+  "ui": {
+    "logoBefore": "DARK",
+    "logoAccent": "MATTER",
+    "badge": "极简主义",
+    "heading": "Dark Matter S1",
+    "description": "极简黑白美学 · 微妙 proximity 反馈 · 高细节噪声曲面 · 低调粒子环绕",
+    "stats": [
+      { "value": "极简", "label": "风格" },
+      { "value": "64层", "label": "噪声细节" },
+      { "value": "200", "label": "轨道粒子" }
+    ],
+    "ctaText": "了解更多"
+  }
+}
